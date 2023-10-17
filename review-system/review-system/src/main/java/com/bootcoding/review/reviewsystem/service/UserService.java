@@ -18,6 +18,15 @@ public class UserService {
 
         return "SUCCESSFULLY USER CREATED";
     }
+    public String createUsers(List<User> listUser){
+        userrepository.saveMultiple(listUser);
+        for (User user:listUser) {
+          print(user);
+        }
+       return "Mutiple Users has been created";
+    }
+
+
 
     private void print(User user) {
         System.out.println(user.getUsername());

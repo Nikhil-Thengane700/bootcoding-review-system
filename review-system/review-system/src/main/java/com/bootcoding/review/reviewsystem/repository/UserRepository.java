@@ -32,6 +32,18 @@ public class UserRepository {
         }
     }
 
+    public void saveMultiple(List<User> listUser){
+        try{
+            for (User user:listUser){
+           String query ="INSERT into app_user(user_name,emailid,phonno) " +"values('"+user.getUsername()+"',"+
+                    "'"+user.getEmailId()+"',"+user.getPhonno()+")";
+            jdbcTemplate.update(query);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
     public User getUserById(int userId){
         try {
             String sql = "SELECT * FROM app_user WHERE id=?";
@@ -50,8 +62,9 @@ public class UserRepository {
 
         catch (Exception e){
             e.printStackTrace();
+            return null;
         }
-        return null;
+
     }
 
     public List<User> getAllUsers(){
@@ -72,33 +85,33 @@ public class UserRepository {
 
         catch (Exception e){
             e.printStackTrace();
-            return null;
+
 
         }
+        return null;
     }
 
 
     public int deleteUserById(int userId) {
         try {
-            String sql = "DELETE FROM app_user WHERE ID=?)";
+            String sql = "DELETE FROM app_user WHERE ID=?";
             return jdbcTemplate.update(sql, userId);
 
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
+
     }
 
     public int updateUserById(User user,int id) {
         try {
-            String sql = "UPDATE  app_user  SET user_name=? , emailid=? , phoneno=? WHERE id=?";
+            String sql = "UPDATE  app_user  SET user_name=? , emailid=? , phonno=? WHERE id=?";
             return jdbcTemplate.update(sql, user.getUsername(), user.getEmailId(), user.getPhonno(),id);
-
         } catch (Exception e) {
             e.printStackTrace();
-
+            return -1;
         }
-        return -1;
     }
 
 
